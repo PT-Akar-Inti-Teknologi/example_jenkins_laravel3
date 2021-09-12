@@ -41,7 +41,27 @@ pipeline {
 
         sh 'php artisan key:generate'
 
-        sh 'vendor/bin/phpunit'
+        sh 'phpdbg -dmemory_limit=4G -qrr vendor/bin/phpunit -c phpunit.xml --log-junit ./results/results.xml --coverage-clover ./results/coverage.xml'
+      }
+    }
+
+    stage('Sonarqube analysis') {
+      environment {
+        scannerHome = tool 'sonarqube-scanner'
+      }
+
+      steps {
+        withSonarQubeEnv(installationName: 'sonarqube') {
+          sh '$scannerHome/bin/sonar-scanner'
+        }
+      }
+    }
+
+    stage('Quality Gate') {
+      steps {
+        timeout(time: 1, unit: 'HOURS') {
+          waitForQualityGate abortPipeline: true
+        }
       }
     }
 
