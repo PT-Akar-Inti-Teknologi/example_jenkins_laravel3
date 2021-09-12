@@ -1,10 +1,11 @@
 pipeline {
   agent any
+
   stages {
     stage('Build') {
       agent {
         docker {
-          image: 'composer'
+          image 'composer'
           reuseNode true
         }
       }
@@ -13,6 +14,7 @@ pipeline {
         sh 'composer install --no-interaction'
       }
     }
+
     stage('Build & Test') {
       agent {
         docker {
