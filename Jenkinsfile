@@ -13,7 +13,7 @@ pipeline {
 
       steps {
         sh '''apt-get update -q
-        apt-get install git -y
+        apt-get install git unzip -y
         apt-get autoremove graphviz -y
         apt-get install graphviz -y
         '''
