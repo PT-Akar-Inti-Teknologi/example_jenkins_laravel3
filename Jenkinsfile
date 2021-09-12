@@ -22,7 +22,7 @@ pipeline {
         sh 'php composer-setup.php'
         sh 'php composer.phar install --no-interaction'
 
-        sh 'vendor/bin/phpunit'
+        // sh 'vendor/bin/phpunit'
 
         sh 'cp .env.example .env'
 
