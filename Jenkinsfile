@@ -2,6 +2,17 @@ pipeline {
   agent any
 
   stages {
+    stage('Build with docker') {
+      agent {
+        docker {
+          image 'php:8.0'
+          reuseNode true
+        }
+      }
+      steps {
+        sh 'php -v'
+      }
+    }
     stage('Build & Test') {
       steps {
         sh 'composer install --no-interaction'
