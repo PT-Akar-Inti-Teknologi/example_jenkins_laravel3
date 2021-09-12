@@ -1,24 +1,30 @@
 pipeline {
-    agent any
-    stages {
-      stage('Build & Test') {
-        agent {
-          docker {
-            image 'php:7.4'
-            args '-u root:sudo'
-            reuseNode true
-          }
-        }
-
-        steps {
-          sh 'php -r "copy(\'https://getcomposer.org/installer\', \'composer-setup.php\');"'
-          sh 'php composer-setup.php'
-          sh 'php composer.phar install --no-interaction'
-
-          sh 'vendor/bin/phpunit'
+  agent any
+  stages {
+    stage('Build & Test') {
+      agent {
+        docker {
+          image 'php:7.4'
+          args '-u root:sudo'
+          reuseNode true
         }
       }
+
+      steps {
+        sh '''apt-get update -q
+        apt-get install git -y
+        apt-get autoremove graphviz -y
+        apt-get install graphviz -y
+        '''
+
+        sh 'php -r "copy(\'https://getcomposer.org/installer\', \'composer-setup.php\');"'
+        sh 'php composer-setup.php'
+        sh 'php composer.phar install --no-interaction'
+
+        sh 'vendor/bin/phpunit'
+      }
     }
+  }
 
   post {
     failure {
