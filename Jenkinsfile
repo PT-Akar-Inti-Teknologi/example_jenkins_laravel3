@@ -40,8 +40,23 @@ pipeline {
         sh 'cp .env.example .env'
 
         sh 'php artisan key:generate'
+
+        sh 'vendor/bin/phpunit'
       }
     }
+
+    // stage('Test') {
+    //   agent {
+    //     docker {
+    //       image 'phpunit/phpunit'
+    //       reuseNode true
+    //     }
+    //   }
+
+    //   steps {
+    //     sh 'phpunit'
+    //   }
+    // }
   }
 
   post {
