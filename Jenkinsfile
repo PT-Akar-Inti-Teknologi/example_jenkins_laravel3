@@ -3,12 +3,12 @@ pipeline {
 
   stages {
     stage('Build') {
-      agent {
-        docker {
-          image 'composer'
-          reuseNode true
-        }
-      }
+      // agent {
+      //   docker {
+      //     image 'composer'
+      //     reuseNode true
+      //   }
+      // }
 
       steps {
         sh 'composer install --no-interaction'
@@ -16,13 +16,13 @@ pipeline {
     }
 
     stage('Build & Test') {
-      agent {
-        docker {
-          image 'php:7.4'
-          args '-u root:sudo'
-          reuseNode true
-        }
-      }
+      // agent {
+      //   docker {
+      //     image 'php:7.4'
+      //     args '-u root:sudo'
+      //     reuseNode true
+      //   }
+      // }
 
       steps {
         // sh '''apt-get update -q
