@@ -3,8 +3,10 @@ pipeline {
   stages {
     stage('Build') {
       agent {
-        image: 'composer'
-        reuseNode true
+        docker {
+          image: 'composer'
+          reuseNode true
+        }
       }
 
       steps {
