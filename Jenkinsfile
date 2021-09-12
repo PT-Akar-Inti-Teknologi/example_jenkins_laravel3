@@ -4,13 +4,15 @@ pipeline {
       stage('Build & Test') {
         agent {
           docker {
-            image 'composer'
+            image 'php:7.4'
             args '-u root:sudo'
             reuseNode true
           }
         }
 
         steps {
+          sh 'php -r "copy(\'https://getcomposer.org/installer\', \'composer-setup.php\');"'
+          sh 'php composer-setup.php'
           sh 'composer install --no-interaction'
 
           sh 'vendor/bin/phpunit'
