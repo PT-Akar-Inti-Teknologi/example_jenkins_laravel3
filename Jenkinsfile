@@ -37,6 +37,8 @@ pipeline {
 
         // sh 'vendor/bin/phpunit'
 
+        sh 'cp .env.example .env'
+
         sh 'php artisan key:generate'
       }
     }
