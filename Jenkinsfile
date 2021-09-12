@@ -30,6 +30,20 @@ pipeline {
       }
     }
 
+    stage('Code Style') {
+      agent {
+        docker {
+          image 'php:7.4'
+          args '-u root:sudo'
+          reuseNode true
+        }
+      }
+
+      steps {
+        sh 'vendor/bin/phpcs'
+      }
+    }
+
     stage('Sonarqube analysis') {
       environment {
         scannerHome = tool 'sonarqube-scanner'
