@@ -4,8 +4,8 @@ pipeline {
   stages {
     stage('Build & Test') {
       agent {
-        docker {
-          image 'php:7.4'
+        dockerfile {
+          filename 'Dockerfile.jenkins'
           args '-u root:sudo'
           reuseNode true
         }
@@ -32,8 +32,8 @@ pipeline {
 
     stage('Code Style') {
       agent {
-        docker {
-          image 'php:7.4'
+        dockerfile {
+          filename 'Dockerfile.jenkins'
           args '-u root:sudo'
           reuseNode true
         }

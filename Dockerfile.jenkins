@@ -1,0 +1,10 @@
+FROM php:7.4
+
+RUN apt-get update -q
+RUN apt-get install git unzip -y
+RUN apt-get autoremove graphviz -y
+RUN apt-get install graphviz -y
+
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+RUN php composer-setup.php
+RUN mv composer.phar /usr/bin/composer
