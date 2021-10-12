@@ -12,16 +12,6 @@ pipeline {
       }
 
       steps {
-        sh '''apt-get update -q
-        apt-get install git unzip -y
-        apt-get autoremove graphviz -y
-        apt-get install graphviz -y
-        '''
-
-        sh 'php -r "copy(\'https://getcomposer.org/installer\', \'composer-setup.php\');"'
-        sh 'php composer-setup.php'
-        sh 'php composer.phar install --no-interaction'
-
         sh 'cp .env.example .env'
 
         sh 'php artisan key:generate'
